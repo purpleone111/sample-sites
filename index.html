@@ -19,7 +19,12 @@ html,body{height:100%;margin:0}
 body{background:#0e0e10;color:#eee;font:14px/1.4 -apple-system,Inter,Arial,sans-serif;
   padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
 .app{display:grid;grid-template-columns:var(--panel) 1fr;height:100%;min-height:100vh}
-.panel{background:#161619;border-right:1px solid #26262a;overflow-y:auto;padding:18px 16px 40px}
+.panel{background:#161619;border-right:1px solid #26262a;display:flex;flex-direction:column;min-height:0}
+.panel-scroll{overflow-y:auto;padding:18px 16px 24px;flex:1;min-height:0}
+.send-box{padding:14px 16px;border-top:1px solid #26262a;background:#151517}
+.send-box input{margin-bottom:8px}
+.send-btn{width:100%;background:var(--accent,#e0b64a);color:#0b0d12;border:0;border-radius:8px;padding:11px;font-weight:700;font-size:13px;cursor:pointer}
+.send-hint{font-size:10.5px;color:#6f6f78;margin-top:8px;line-height:1.4}
 .brand{font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:2px}
 .brand small{display:block;font-weight:400;color:#8a8a92;font-size:11px;margin-top:2px}
 .tabs{display:flex;gap:4px;margin:16px 0 12px;background:#0e0e10;border-radius:8px;padding:3px}
@@ -95,12 +100,12 @@ footer.s .contactrow{display:flex;gap:26px;color:var(--muted);font-size:13.5px;f
 <body>
 <div class="app">
   <div class="panel">
-    <div class="brand">Build Your Site<small>pick a look, drop in the client's content</small></div>
+    <div class="panel-scroll">
+    <div class="brand">Build Your Site<small>pick a palette, a type pairing, a layout</small></div>
     <div class="tabs" id="tabs">
       <button data-tab="palette" aria-selected="true">Palette</button>
       <button data-tab="type">Type</button>
       <button data-tab="layout">Layout</button>
-      <button data-tab="content">Content</button>
     </div>
 
     <div class="section on" id="sec-palette">
@@ -116,71 +121,35 @@ footer.s .contactrow{display:flex;gap:26px;color:var(--muted);font-size:13.5px;f
       <div class="laylist" id="layoutlist"></div>
       <div class="hint">Same content, six structural directions — centered, split, oversized/magazine, minimal, work-first grid, editorial.</div>
     </div>
+    </div>
 
-    <div class="section" id="sec-content">
-      <label>Business / client name</label>
-      <input id="c-brand" value="Studio Name">
-      <label>Tagline (kicker)</label>
-      <input id="c-kick" value="Film / Design / Goa">
-      <label>Hero headline</label>
-      <input id="c-h1" value="Work worth stopping for.">
-      <label>Hero subcopy</label>
-      <textarea id="c-sub" rows="2">A short line on who this is and what they make — swap per client.</textarea>
-      <label>CTA button label</label>
-      <input id="c-cta" value="See the work">
-      <label>About heading</label>
-      <input id="c-abouth" value="A bit of background">
-      <label>About text</label>
-      <textarea id="c-about" rows="3">Two or three sentences on the client's story — background, focus, and what makes the work theirs.</textarea>
-
-      <div class="work-item">
-        <label>Work item 1 — tag / title / blurb</label>
-        <input id="c-w1t" value="FILM" style="margin-bottom:6px">
-        <input id="c-w1h" value="Project One" style="margin-bottom:6px">
-        <input id="c-w1p" value="One line on what this project is.">
-      </div>
-      <div class="work-item">
-        <label>Work item 2</label>
-        <input id="c-w2t" value="DESIGN" style="margin-bottom:6px">
-        <input id="c-w2h" value="Project Two" style="margin-bottom:6px">
-        <input id="c-w2p" value="One line on what this project is.">
-      </div>
-      <div class="work-item">
-        <label>Work item 3</label>
-        <input id="c-w3t" value="EDITORIAL" style="margin-bottom:6px">
-        <input id="c-w3h" value="Project Three" style="margin-bottom:6px">
-        <input id="c-w3p" value="One line on what this project is.">
-      </div>
-
-      <label>Contact heading</label>
-      <input id="c-contacth" value="Let's make something.">
-      <label>Email</label>
-      <input id="c-email" value="hello@client.com">
-      <label>Instagram / handle</label>
-      <input id="c-insta" value="@handle">
+    <div class="send-box">
+      <input id="c-clientname" placeholder="Client / project name">
+      <button class="send-btn" id="send-btn">Send me these picks</button>
+      <div class="send-hint">Opens an email to abhi@smolcatfilms.com with the palette, type and layout selected.</div>
     </div>
   </div>
 
   <div class="preview">
     <div class="site" id="site" data-layout="centered">
-      <nav class="s"><div class="navbrand" id="p-brand">Studio Name</div><div class="navlinks"><span>Work</span><span>About</span><span>Contact</span></div></nav>
+      <nav class="s"><div class="navbrand">Smol Cat Films</div><div class="navlinks"><span>Work</span><span>About</span><span>Contact</span></div></nav>
       <section class="hero">
-        <div class="sw2" style="display:none" id="hero-sw"></div>
-        <div class="kick" id="p-kick">Film / Design / Goa</div>
-        <h1 id="p-h1">Work worth stopping for.</h1>
-        <p id="p-sub">A short line on who this is and what they make — swap per client.</p>
-        <a class="cta" href="#" onclick="return false" id="p-cta">See the work</a>
+        <div class="sw2" style="display:none"></div>
+        <div class="kick">Film / Comedy / Design — Goa</div>
+        <h1>Work worth stopping for.</h1>
+        <p>A small studio making films, comedy and design work out of Goa — this is a sample layout to try palettes, type and structure against before we build the real thing.</p>
+        <a class="cta" href="#" onclick="return false">See the work</a>
       </section>
-      <section class="about"><h2 id="p-abouth">A bit of background</h2><p id="p-about">Two or three sentences on the client's story.</p></section>
+      <section class="about"><h2>A bit of background</h2><p>Smol Cat Films is a Goa-based studio working across film, comedy and design — the same crew behind Goan Comedy Cartel. This sample stands in for any client's about section while a look is chosen.</p></section>
       <section class="work"><h2>Selected work</h2>
         <div class="wgrid">
-          <div class="wcard"><div class="sw2"></div><small id="p-w1t">FILM</small><h3 id="p-w1h">Project One</h3><p id="p-w1p">One line on what this project is.</p></div>
-          <div class="wcard"><div class="sw2"></div><small id="p-w2t">DESIGN</small><h3 id="p-w2h">Project Two</h3><p id="p-w2p">One line on what this project is.</p></div>
-          <div class="wcard"><div class="sw2"></div><small id="p-w3t">EDITORIAL</small><h3 id="p-w3h">Project Three</h3><p id="p-w3p">One line on what this project is.</p></div>
+          <div class="wcard"><div class="sw2"></div><small>FILM</small><h3>Short Film Reel</h3><p>A recent short, shot and edited in-house.</p></div>
+          <div class="wcard"><div class="sw2"></div><small>COMEDY</small><h3>Goan Comedy Cartel</h3><p>Live sets and sketches from the collective.</p></div>
+          <div class="wcard"><div class="sw2"></div><small>DESIGN</small><h3>Poster & Identity</h3><p>Key art and brand work for the above.</p></div>
         </div>
       </section>
-      <footer class="s"><h2 id="p-contacth">Let's make something.</h2>
-        <div class="contactrow"><span id="p-email">hello@client.com</span><span id="p-insta">@handle</span></div>
+      <footer class="s"><h2>Let's make something.</h2>
+        <div class="contactrow"><span>abhi@smolcatfilms.com</span><span>@smolcatfilms</span></div>
       </footer>
     </div>
   </div>
@@ -192,23 +161,25 @@ const FNT=[["Playfair / Inter","Playfair Display","Inter"],["Fraunces / Work San
 const LAY=[["centered","Centered"],["split","Split hero"],["magazine","Magazine"],["minimal","Minimal"],["grid","Work-first grid"],["editorial","Editorial"]];
 
 const root=document.documentElement.style;
+let palName=PAL[0][0],fontName=FNT[0][0],layName=LAY[0][1];
+
 const swatches=document.getElementById('swatches');
 PAL.forEach((p,i)=>{const b=document.createElement('button');b.className='sw';b.style.background=p[1];b.style.color=p[2];b.setAttribute('aria-pressed',i===0);b.innerHTML=`<span>${p[0]}</span>`;
-  b.onclick=()=>{root.setProperty('--bg',p[1]);root.setProperty('--text',p[2]);root.setProperty('--accent',p[3]);root.setProperty('--muted',p[4]);
+  b.onclick=()=>{root.setProperty('--bg',p[1]);root.setProperty('--text',p[2]);root.setProperty('--accent',p[3]);root.setProperty('--muted',p[4]);palName=p[0];
     [...swatches.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};
   swatches.appendChild(b)});
 
 const fontlist=document.getElementById('fontlist');
 FNT.forEach((f,i)=>{const b=document.createElement('button');b.setAttribute('aria-pressed',i===0);
   b.innerHTML=`${f[0]}<small>${f[1]} + ${f[2]}</small>`;
-  b.onclick=()=>{root.setProperty('--fd',`'${f[1]}',Georgia,serif`);root.setProperty('--fb',`'${f[2]}',Arial,sans-serif`);
+  b.onclick=()=>{root.setProperty('--fd',`'${f[1]}',Georgia,serif`);root.setProperty('--fb',`'${f[2]}',Arial,sans-serif`);fontName=f[0];
     [...fontlist.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};
   fontlist.appendChild(b)});
 
 const laylist=document.getElementById('layoutlist');
 const site=document.getElementById('site');
 LAY.forEach((l,i)=>{const b=document.createElement('button');b.setAttribute('aria-pressed',i===0);b.textContent=l[1];
-  b.onclick=()=>{site.dataset.layout=l[0];[...laylist.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};
+  b.onclick=()=>{site.dataset.layout=l[0];layName=l[1];[...laylist.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};
   laylist.appendChild(b)});
 
 document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(!b)return;
@@ -216,13 +187,12 @@ document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.cl
   [...document.querySelectorAll('.section')].forEach(s=>s.classList.remove('on'));
   document.getElementById('sec-'+b.dataset.tab).classList.add('on')});
 
-const bind=[['c-brand','p-brand'],['c-brand','navbrand-skip'],['c-kick','p-kick'],['c-h1','p-h1'],['c-sub','p-sub'],['c-cta','p-cta'],
-  ['c-abouth','p-abouth'],['c-about','p-about'],['c-w1t','p-w1t'],['c-w1h','p-w1h'],['c-w1p','p-w1p'],
-  ['c-w2t','p-w2t'],['c-w2h','p-w2h'],['c-w2p','p-w2p'],['c-w3t','p-w3t'],['c-w3h','p-w3h'],['c-w3p','p-w3p'],
-  ['c-contacth','p-contacth'],['c-email','p-email'],['c-insta','p-insta']];
-bind.forEach(([src,dst])=>{if(dst==='navbrand-skip')return;const el=document.getElementById(src);
-  el.addEventListener('input',()=>{document.getElementById(dst).textContent=el.value})});
-document.getElementById('c-brand').addEventListener('input',e=>{document.querySelector('.navbrand').textContent=e.target.value});
+document.getElementById('send-btn').addEventListener('click',()=>{
+  const who=document.getElementById('c-clientname').value.trim()||'(no name given)';
+  const subject=`Site style pick — ${who}`;
+  const body=`Client / project: ${who}\nPalette: ${palName}\nType pairing: ${fontName}\nLayout: ${layName}`;
+  window.location.href=`mailto:abhi@smolcatfilms.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
 </script>
 </body>
 </html>
