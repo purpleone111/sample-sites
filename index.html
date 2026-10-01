@@ -107,10 +107,33 @@ footer.s .contactrow{display:flex;gap:26px;color:var(--muted);font-size:13.5px;f
 [data-layout=editorial] .wcard .sw2{height:80px;margin-bottom:0}
 
 @media (max-width:860px){
-  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .panel{max-height:44vh;border-right:0;border-bottom:1px solid #26262a}
+  body{padding:0}
+  .app{display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:0}
+  .preview{flex:1;min-height:0;padding-top:env(safe-area-inset-top,0px);-webkit-overflow-scrolling:touch}
+  /* controls become a compact bottom dock */
+  .panel{flex:none;max-height:none;border-right:0;border-bottom:0;border-top:1px solid #26262a;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+  .panel-scroll{overflow:visible;flex:none;padding:10px 12px 4px}
+  .brand,.hint,.send-hint{display:none}
+  .tabs{margin:0 0 10px}
+  .tabs button{padding:10px 4px;font-size:12.5px}
+  .grid-sw,.flist,.laylist{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:2px 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .grid-sw::-webkit-scrollbar,.flist::-webkit-scrollbar,.laylist::-webkit-scrollbar{display:none}
+  .sw{flex:none;width:68px;height:68px;aspect-ratio:auto;scroll-snap-align:start}
+  .sw span{opacity:1;font-size:9px}
+  .flist button{flex:none;width:auto;min-width:160px;margin:0;scroll-snap-align:start}
+  .laylist button{flex:none;min-width:112px;padding:16px 12px;scroll-snap-align:start}
+  .send-box{display:flex;gap:8px;padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px))}
+  .send-box input{margin:0;flex:1;min-width:0;font-size:16px}
+  .send-btn{width:auto;flex:none;padding:0 18px;white-space:nowrap}
+  /* sample site */
+  nav.s{padding:16px 6vw}
+  nav.s .navlinks{gap:14px}
+  .hero{padding:6vh 6vw 6vh}
   .wgrid{grid-template-columns:1fr}
   [data-layout=split] .hero{grid-template-columns:1fr}
+  [data-layout=split] .hero .sw2{height:22vh}
+  [data-layout=magazine] .hero h1{font-size:clamp(40px,13vw,64px)}
+  [data-layout=editorial] .wcard{grid-template-columns:84px 1fr}
 }
 </style>
 </head>
